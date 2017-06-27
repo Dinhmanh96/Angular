@@ -1,0 +1,17 @@
+.listusers{
+	.search{
+		width: 70%;
+		height: 30px;
+		float: left;
+		margin-right: 10px;
+	}
+	.listusers-content{
+		height: 300px;
+		overflow-y: scroll;
+		border: solid 1px #000;
+		margin-top: 10px;
+	}
+	.addusers{
+		margin: 10px 0px;
+	}
+}
