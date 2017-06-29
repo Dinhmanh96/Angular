@@ -1,14 +1,53 @@
+.main {
+  padding-top: 20px; }
+
 .listusers .search {
-  width: 70%;
-  height: 30px;
-  float: left;
-  margin-right: 10px; }
-.listusers .listusers-content {
-  height: 300px;
-  overflow-y: scroll;
-  border: solid 1px #000;
-  margin-top: 10px; }
+  padding: 17px 0px 16px 0px; }
 .listusers .addusers {
   margin: 10px 0px; }
+.listusers .table {
+  margin-top: 23px; }
+
+.fa-sort-alpha-asc {
+  font-size: 10px; }
+
+.addusers-table {
+  border-left: solid 1px #dddddd; }
+  .addusers-table h2 {
+    margin-top: 0px; }
+
+tbody .id, .email {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+
+.scroll {
+  border: 1px solid #dddddd;
+  border-collapse: collapse;
+  height: 350px; }
+
+.scroll tr {
+  display: flex; }
+
+.scroll td, th {
+  padding: 3px;
+  flex: 1 auto; }
+
+.scroll thead tr:after {
+  content: '';
+  overflow-y: scroll;
+  visibility: hidden;
+  height: 0; }
+
+.scroll thead th {
+  height: 40px;
+  flex: 1 auto;
+  display: block; }
+
+.scroll tbody {
+  display: block;
+  width: 100%;
+  overflow-y: scroll;
+  height: 350px; }
 
 /*# sourceMappingURL=index.css.map */
