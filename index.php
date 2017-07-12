@@ -14,10 +14,26 @@
 		
 	</head>
 	<body ng-app="myApp">
+		
+			<nav class="navbar">
+				<div class="container-fluid header">
+					<div class="navbar-header">
+				    	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>
+					        <span class="icon-bar"></span>                        
+				      	</button>
+				    </div>
+				    <div class="collapse navbar-collapse" id="myNavbar">
+				      <ul class="nav navbar-nav">
+				        <li><a href="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i> Home</a></li>
+				        <li><a href="#!listusers"><i style="font-size: 28px;" class="fa fa-vcard fa-2x" aria-hidden="true"></i> List User</a></li>
+				      </ul>
+				    </div>
+				</div>
+			</nav>
 		<div class="container main">
-			<a href="/">Home</a>
-			<a href="#!listusers">List Users</a>
-			<div ng-view></div>
+			<div style="padding-top: 30px;" ng-view></div>
 		</div>
 		<script type="text/javascript" src="js/index.js"></script>
 	</body>

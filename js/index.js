@@ -1,7 +1,21 @@
-var app = angular.module("myApp", []);
+var app = angular.module("myApp", ['ngRoute']);
+
+	app.config(function($routeProvider) {
+	    $routeProvider
+	    .when("/", {
+	        templateUrl : "index_content.php",
+	        controller: "myCtrl"
+	    })
+	    .when("/listusers", {
+	        templateUrl : "list_users.php",
+	        controller: "listusersCtrl"
+	        // controller: "myCtrl";
+	    })
+	});
+
 	app.controller("myCtrl", function($scope, $http) {
 		$scope.temp = [];
-		$http.get("users.json").then(function(response) {
+		$http.get("api/user/getUser.php").then(function(response) {
 			$scope.users = response.data.users;
 		});
 	    $scope.listusers = [];
@@ -53,19 +67,24 @@ var app = angular.module("myApp", []);
 		    	$scope.temp.splice(0,$scope.temp.length);
 		    	$scope.checkAll = false;
 	    	}else{
-	    		alert("No User Selected!");
+	    		
+	    		// angular.element("#alertModal").modal({show:true});
+	    		$("#alertModal").modal({show:true});
+
 	    	}
 	    }
-	    $scope.undo = function(x){
-	    	var confirm = window.confirm("Are you want delete this User?");
-	    	if (confirm) {
-	    		$scope.users.push({id: x.id,name: x.name, age: x.age, email: x.email});
+	    $scope.requestundo = function(x){
+	    	$scope.undo_x = x;
+	    }
+	    $scope.undo = function(){
+	    		
+	    		$scope.users.push({id: $scope.undo_x.id,name: $scope.undo_x.name, age: $scope.undo_x.age, email: $scope.undo_x.email});
 		    	for (var j = 0; j < $scope.listusers.length; j++) {
-		    		if ($scope.listusers[j].id == x.id) {
+		    		if ($scope.listusers[j].id == $scope.undo_x.id) {
 		    			$scope.listusers.splice(j,1);
 		    		}			
 		    	}
-	    	}
+	    	
 	    }
 	    $scope.sortid = function(){
 	    	$scope.fil = $scope.vec;
@@ -85,10 +104,10 @@ var app = angular.module("myApp", []);
 	    }
 	    $scope.sortage = function(){
 	    	$scope.fil = $scope.vec;
-	    	if($scope.vec == "age"){
-	    		$scope.vec = "-age";
+	    	if($scope.vec == "1*age"){
+	    		$scope.vec = "1*-age";
 	    	}else{
-	    		$scope.vec = "age";
+	    		$scope.vec = "1*age";
 	    	}
 	    }
 	    $scope.sortemail = function(){
@@ -100,3 +119,111 @@ var app = angular.module("myApp", []);
 	    	}
 	    }
 	});
+	
+	app.controller("listusersCtrl", function($scope, $http){
+		$http.get("api/user/getUser.php").then(function(response) {
+			$scope.users = response.data.users;
+		});
+		$scope.searchInput = function(){
+	    	if (!$scope.input) {
+	    		$scope.y = "";
+	    	}else{
+	    		$scope.y = $scope.input;
+	    	}
+	    }
+	    $scope.search = function(){
+	    	$scope.y = $scope.input;
+	    }
+		$scope.requestupdate = function(x){
+			$scope.id_edit = x.id;
+			$scope.name_edit = x.name;
+			$scope.age_edit = x.age;
+			$scope.email_edit = x.email;
+
+		}
+		$scope.saveupdate = function(){
+			var user_update = {
+	 			id: $scope.id_edit,
+	 			name: $scope.name_edit,
+	 			age: $scope.age_edit,
+	 			email: $scope.email_edit
+	 		};
+	 		$http.post("api/user/updateUsers.php",user_update).then(function(response) {
+			});
+			$("#updateModal").modal('hide');
+	 		window.location.href= "#!listusers";
+		}
+
+		$scope.saveadd = function(){
+			var user = {
+	 			id: $scope.id_add,
+	 			name: $scope.name_add,
+	 			age: $scope.age_add,
+	 			email: $scope.email_add
+	 		};
+	 		$http.post("api/user/addUsers.php",user).then(function(response) {
+			});
+			$("#addModal").modal('hide');
+	 		window.location.href= "#!listusers";
+		}
+		$scope.requestdelete = function(x){
+			$scope.delete_id = x.id;
+		}
+		$scope.delete = function(){
+			var user_delete = {
+	 			id: $scope.delete_id
+	 		};
+	 		$http.post("api/user/deleteUsers.php",user_delete).then(function(response) {
+			});
+			window.location.href= "#!listusers";
+		}
+		$scope.sortid = function(){
+	    	$scope.fil = $scope.vec;
+	    	if($scope.vec == "id"){
+	    		$scope.vec = "-id";
+	    	}else{
+	    		$scope.vec = "id";
+	    	}
+	    }
+	    $scope.sortname = function(){
+	    	$scope.fil = $scope.vec;
+	    	if($scope.vec == "name"){
+	    		$scope.vec = "-name";
+	    	}else{
+	    		$scope.vec = "name";
+	    	}
+	    }
+	    $scope.sortage = function(){
+	    	$scope.fil = $scope.vec;
+	    	if($scope.vec == "1*age"){
+	    		$scope.vec = "1*-age";
+	    	}else{
+	    		$scope.vec = "1*age";
+	    	}
+	    }
+	    $scope.sortemail = function(){
+	    	$scope.fil = $scope.vec;
+	    	if($scope.vec == "email"){
+	    		$scope.vec = "-email";
+	    	}else{
+	    		$scope.vec = "email";
+	    	}
+	    }
+	});
+
+	app.controller("addusersCtrl", function($scope, $http){
+	 	$scope.addusers = function (){
+	 		var user = {
+	 			id: $scope.id,
+	 			name: $scope.name,
+	 			age: $scope.age,
+	 			email: $scope.email
+	 		};
+	 		$http.post("api/user/addUsers.php",user).then(function(response) {
+			});
+	 	}
+	 	
+	});
+
+
+	
