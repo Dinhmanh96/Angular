@@ -7,6 +7,7 @@ $color-blue-dark: #2d3950;
 	position: fixed;
 	top: 0;
 	z-index: 1;
+
 	.navbar-toggle{
 		background-color: transparent;
 		margin-top: 15px;
@@ -15,9 +16,11 @@ $color-blue-dark: #2d3950;
 		}
 	}
 	.collapse{
-		float: right;
+		padding-left: 6%;
+		float: left;
 	}
 	.navbar-nav{
+
 		a{
 			color: $color-blue-dark;
 		}

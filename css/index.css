@@ -10,7 +10,8 @@
     .navbar .navbar-toggle span {
       background-color: #2d3950; }
   .navbar .collapse {
-    float: right; }
+    padding-left: 6%;
+    float: left; }
   .navbar .navbar-nav a {
     color: #2d3950; }
   .navbar .navbar-nav li {
