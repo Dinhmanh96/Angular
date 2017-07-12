@@ -1,7 +1,7 @@
 
 <div class="col-md-12">
 <h2 style="padding-bottom: 30px;">List Users</h2>
-	<div class="col-md-6 search-list">
+	<div class="col-xs-6 search-list">
 		<div class="input-group" style="width: 70%">
 						<input  type="text" class="form-control input-search" placeholder="Search for name" ng-change="searchInput()" ng-model="input">
 						<span class="input-group-btn">
@@ -9,7 +9,7 @@
 						</span>
 					</div>
 	</div>
-	<div class="col-md-6">
+	<div class="col-xs-6">
 		<button class="btn btn-success btn-add" data-toggle="modal" data-target="#addModal">Add user</button>
 	</div>
 	
